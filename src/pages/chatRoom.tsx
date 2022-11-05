@@ -2,13 +2,14 @@ import { AuthServiceDependency } from './interface/baseDependency'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from '../settings'
-
+import ApiService from '../services/ApiService'
 interface ChatRoomDependency extends AuthServiceDependency {
 
 }
 
 const chatRoom: React.FC<ChatRoomDependency> = (props) => {
     const navigate = useNavigate()
+    const apiService = new ApiService()
 
     useEffect(() => {
         const ensureLogin = async () => {
@@ -30,14 +31,22 @@ const chatRoom: React.FC<ChatRoomDependency> = (props) => {
                 You are log in now !
             </div>
             <div>
-
+                <button onClick={() => props.AuthService.GetUserInfo()}>
+                    renew token
+                </button>
             </div>
             <button onClick={() => {
-                console.log('dowork')
                 props.AuthService.Logout()
             }}>
                 Logout
             </button>
+            <button onClick={() => apiService.FetchAllChatRoom().then(x => console.log('ChatRooms', x))}>
+                Fetch All Room
+            </button>
+            <button onClick={() => apiService.RegisterNewChatRoom()}>
+                Register New Room
+            </button>
+
         </div >
     )
 }

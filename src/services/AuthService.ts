@@ -9,13 +9,11 @@ import { Setting, Routes } from "../settings";
 export default class AuthService {
   private _userManager: UserManager;
   constructor() {
-    const currentHost = `${window.location.protocol}//${window.location.host}`;
     const settings: UserManagerSettings = {
       authority: Setting.OidcServier,
       client_id: Setting.Client_ID,
-      redirect_uri: `${currentHost}${Routes.SignInCallbackEndpoint}`,
-      //   silent_redirect_uri: `${currentHost}/silent-renew.html`,
-      post_logout_redirect_uri: `${currentHost}${Routes.SignOutCallbackEndpoint}`,
+      redirect_uri: `${window.location.origin}${Routes.SignInCallbackEndpoint}`,
+      post_logout_redirect_uri: `${window.location.origin}${Routes.SignOutCallbackEndpoint}`,
       response_type: "code",
       scope: Setting.Scope,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
@@ -26,6 +24,7 @@ export default class AuthService {
 
     this._userManager.events.addAccessTokenExpired(() => {
       console.log("Token expired!");
+      this._userManager.revokeTokens();
     });
     this._userManager.events.addUserSignedIn(() => {
       console.log("SignIn success!");
@@ -33,18 +32,19 @@ export default class AuthService {
     this._userManager.events.addUserSignedOut(() => {
       console.log("Sign Out!");
     });
+    // this._userManager.events.
   }
 
-  public Login() {
-    return this._userManager.signinRedirect();
+  public async Login() {
+    await this._userManager.signinPopup();
+    window.location.reload();
   }
 
   public LoginCallback() {
-    return this._userManager.signinCallback();
+    return this._userManager.signinPopupCallback();
   }
 
   public Logout() {
-    console.log("Redirect logout");
     return this._userManager.signoutRedirect();
   }
 

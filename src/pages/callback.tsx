@@ -17,7 +17,8 @@ const loginCallback: React.FC<loginCallbackDependency> = (props) => {
                 await props.AuthService.LoginCallback()
                 console.log("Login success");
             }
-            navigate(Routes.IndexEndpoint)
+            // Signin is popup mode , no need to redirect
+            // navigate(Routes.IndexEndpoint)
         }
 
         const processLogout = async (loggedIn: boolean) => {
