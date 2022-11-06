@@ -1,13 +1,16 @@
-import { AuthServiceDependency } from './interface/baseDependency'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from '../settings'
 import ApiService from '../services/ApiService'
-interface ChatRoomDependency extends AuthServiceDependency {
+import AppBar from '../components/AppBar/AppBar'
+import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
+
+
+interface IChatRoomDependency extends IAuthServiceDependency {
 
 }
 
-const chatRoom: React.FC<ChatRoomDependency> = (props) => {
+const chatRoom: React.FC<IChatRoomDependency> = (props) => {
     const navigate = useNavigate()
     const apiService = new ApiService()
 
@@ -16,8 +19,6 @@ const chatRoom: React.FC<ChatRoomDependency> = (props) => {
             let user = await props.AuthService.GetUserInfo()
             if (user === null)
                 navigate(Routes.IndexEndpoint)
-            // else
-            //     console.log('user : ', user)
         }
 
         ensureLogin()

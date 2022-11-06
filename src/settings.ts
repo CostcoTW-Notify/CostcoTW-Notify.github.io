@@ -4,7 +4,7 @@ export class Setting {
   public static LineChatRoomService =
     "https://line-chat-room-service-q4d4kz5xwq-de.a.run.app";
   public static Client_ID = "github-io-client";
-  public static Scope = "offline_access";
+  public static Scope = "openid offline_access";
 }
 
 export class Routes {

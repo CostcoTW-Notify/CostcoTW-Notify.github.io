@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react'
-import { AuthServiceDependency } from './interface/baseDependency'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Routes } from '../settings'
+import { Routes } from '@/settings'
+import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
+import LoginPanel from '@/components/LoginPanel/loginPanel'
 
-interface indexDependency extends AuthServiceDependency {
+interface IIndexDependency extends IAuthServiceDependency {
 
 }
 
-const index: React.FC<indexDependency> = (props) => {
+const index: React.FC<IIndexDependency> = (props) => {
     const navigate = useNavigate()
     const authService = props.AuthService
-
-    const [message, setMessage] = useState("Please login...")
 
     useEffect(() => {
         const checkLogin = async () => {
@@ -25,16 +24,9 @@ const index: React.FC<indexDependency> = (props) => {
 
 
     return (
-        <div>
-            <div>
-                {message}
-            </div>
-            <div>
-                <button onClick={() => authService.Login()}>
-                    Login
-                </button>
-            </div>
-        </div>
+        <>
+            <LoginPanel />
+        </>
     )
 }
 

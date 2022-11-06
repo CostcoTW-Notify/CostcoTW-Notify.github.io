@@ -1,14 +1,14 @@
 
 import { useEffect } from 'react'
-import { AuthServiceDependency } from './interface/baseDependency'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from '../settings'
+import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
 
-interface loginCallbackDependency extends AuthServiceDependency {
+interface IloginCallbackDependency extends IAuthServiceDependency {
 
 }
 
-const loginCallback: React.FC<loginCallbackDependency> = (props) => {
+const loginCallback: React.FC<IloginCallbackDependency> = (props) => {
     const navigate = useNavigate()
 
     useEffect(() => {
