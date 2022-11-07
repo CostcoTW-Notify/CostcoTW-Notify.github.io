@@ -1,54 +1,52 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Routes } from '../settings'
-import ApiService from '../services/ApiService'
-import AppBar from '../components/AppBar/AppBar'
+import { useEffect, useState } from 'react'
 import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
+import {
+    Button,
+    Typography,
+    Stack,
+    SxProps
+} from '@mui/material'
+import ChatRoomList from '@/components/chatRoomList/ChatRoomList'
+import ApiService from '@/services/ApiService'
+import { ChatRoom } from '@/models/ChatRoom'
 
-
-interface IChatRoomDependency extends IAuthServiceDependency {
+interface IChatRoom extends IAuthServiceDependency {
 
 }
 
-const chatRoom: React.FC<IChatRoomDependency> = (props) => {
-    const navigate = useNavigate()
+const chatRoom: React.FC<IChatRoom> = (props) => {
     const apiService = new ApiService()
 
+    const [chatRoomData, setChatRoomData] = useState<ChatRoom[]>([])
+
     useEffect(() => {
-        const ensureLogin = async () => {
-            let user = await props.AuthService.GetUserInfo()
-            if (user === null)
-                navigate(Routes.IndexEndpoint)
+        const fetchChatRoom = async () => {
+            const chatRooms = await apiService.FetchAllChatRoom()
+            setChatRoomData(chatRooms)
         }
 
-        ensureLogin()
-    })
+        fetchChatRoom()
+    }, [])
 
 
+    const stackProp: SxProps = {
+        p: '2em',
+        backgroundColor: 'gray'
+    }
 
     return (
-        <div>
-            <div>
-                You are log in now !
-            </div>
-            <div>
-                <button onClick={() => props.AuthService.GetUserInfo()}>
-                    renew token
-                </button>
-            </div>
-            <button onClick={() => {
-                props.AuthService.Logout()
-            }}>
-                Logout
-            </button>
-            <button onClick={() => apiService.FetchAllChatRoom().then(x => console.log('ChatRooms', x))}>
-                Fetch All Room
-            </button>
-            <button onClick={() => apiService.RegisterNewChatRoom()}>
-                Register New Room
-            </button>
-
-        </div >
+        <Stack
+            spacing={2}
+            sx={stackProp}>
+            <Stack alignItems="flex-end">
+                <Button variant='contained' onClick={() => apiService.RegisterNewChatRoom()}>
+                    <Typography>
+                        建立新通知
+                    </Typography>
+                </Button>
+            </Stack>
+            <ChatRoomList ChatRooms={chatRoomData} ApiService={apiService} />
+        </Stack>
     )
 }
 

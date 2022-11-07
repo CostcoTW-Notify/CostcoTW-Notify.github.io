@@ -26,7 +26,6 @@ const lineLoginButton: React.FC = () => {
                 image={lineLogin}
                 alt="Line Login"
                 sx={{
-                    // maxHeight: '100px',
                     maxWidth: '200px'
                 }}
             />

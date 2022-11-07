@@ -2,13 +2,13 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from '@/settings'
 import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
-import LoginPanel from '@/components/LoginPanel/loginPanel'
+import LoginPanel from '@/components/loginPanel/LoginPanel'
 
-interface IIndexDependency extends IAuthServiceDependency {
+interface IIndex extends IAuthServiceDependency {
 
 }
 
-const index: React.FC<IIndexDependency> = (props) => {
+const index: React.FC<IIndex> = (props) => {
     const navigate = useNavigate()
     const authService = props.AuthService
 
@@ -20,7 +20,7 @@ const index: React.FC<IIndexDependency> = (props) => {
         }
 
         checkLogin()
-    })
+    }, [])
 
 
     return (

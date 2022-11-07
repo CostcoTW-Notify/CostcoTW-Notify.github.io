@@ -4,8 +4,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Container } from '@mui/material'
 import AuthService from "./services/AuthService"
 import { Box, SxProps } from "@mui/system";
-import AppBar from './components/AppBar/AppBar'
+import AppBar from './components/appBar/AppBar'
 import AuthServiceContext from '@/context/AuthContext'
+
 
 const app: React.FC = () => {
 
@@ -23,6 +24,8 @@ const app: React.FC = () => {
     // backgroundColor: "primary.main",
     height: '100vh',
   }
+
+
 
   return (
     <ThemeProvider theme={darkTheme}>

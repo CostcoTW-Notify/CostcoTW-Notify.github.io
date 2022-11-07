@@ -17,7 +17,7 @@ export default class ApiService implements IApiService {
     this.authService = new AuthService();
   }
 
-  async CreateAxiosInstance() {
+  private async CreateAxiosInstance() {
     let access_token = await this.authService.GetAccessToken();
     const instance = axios.create({
       baseURL: Setting.LineChatRoomService,
@@ -41,7 +41,7 @@ export default class ApiService implements IApiService {
     const sender = await this.CreateAxiosInstance();
 
     let response = await sender<ChatRoom>({
-      url: `/api/ChatRoom/${id}`,
+      url: `/api/ChatRooms/${id}`,
       method: "get",
     });
 
@@ -55,7 +55,7 @@ export default class ApiService implements IApiService {
     const sender = await this.CreateAxiosInstance();
 
     let response = await sender({
-      url: `/api/ChatRoom/${id}`,
+      url: `/api/ChatRooms/${id}`,
       method: "patch",
       data: chatRoom,
     });
@@ -67,7 +67,7 @@ export default class ApiService implements IApiService {
     const sender = await this.CreateAxiosInstance();
 
     let response = await sender({
-      url: `/api/ChatRoom/${id}`,
+      url: `/api/ChatRooms/${id}`,
       method: "delete",
     });
 
@@ -82,8 +82,15 @@ export default class ApiService implements IApiService {
       method: "get",
     });
 
-    // Redirect to register url
-    // console.log("url", response.data.register_Url);
     window.location.assign(response.data.register_Url);
+  }
+
+  public async SendMessage(id: string, message: string): Promise<void> {
+    throw "後端忘了做... 晚點補";
+    // const sender = await this.CreateAxiosInstance();
+
+    // let response = await sender({
+
+    // })
   }
 }

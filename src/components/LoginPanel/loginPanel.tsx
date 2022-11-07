@@ -13,8 +13,6 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import logoImg from '@/assets/images/Logo.png'
 import LineLoginButton from './LineLoginButton'
 
-
-
 const loginPanel: React.FC = () => {
 
     const gridProps: SxProps = {
@@ -24,6 +22,7 @@ const loginPanel: React.FC = () => {
     const iconSxProps: SxProps = {
         color: 'darkorange'
     }
+
     return (
         <Grid
             container

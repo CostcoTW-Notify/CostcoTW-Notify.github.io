@@ -24,7 +24,7 @@ export default class AuthService {
 
     this._userManager.events.addAccessTokenExpired(() => {
       console.log("Token expired!");
-      this._userManager.revokeTokens();
+      this._userManager.removeUser();
     });
     this._userManager.events.addUserSignedIn(() => {
       console.log("SignIn success!");
@@ -32,16 +32,14 @@ export default class AuthService {
     this._userManager.events.addUserSignedOut(() => {
       console.log("Sign Out!");
     });
-    // this._userManager.events.
   }
 
   public async Login() {
-    await this._userManager.signinPopup();
-    window.location.reload();
+    await this._userManager.signinRedirect();
   }
 
   public LoginCallback() {
-    return this._userManager.signinPopupCallback();
+    return this._userManager.signinCallback();
   }
 
   public Logout() {
@@ -52,13 +50,15 @@ export default class AuthService {
     return this._userManager.signoutCallback();
   }
 
-  public GetUserInfo() {
-    return this._userManager.getUser();
+  public async GetUserInfo() {
+    const user = await this._userManager.getUser();
+    if (user?.expired) return null;
+    return user;
   }
 
   public async GetAccessToken() {
     let user = await this.GetUserInfo();
-    if (user === null) this.Login();
+    if (user === null || user.expired) window.location.assign("/");
     return user?.access_token;
   }
 }

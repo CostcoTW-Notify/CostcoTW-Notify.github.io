@@ -4,21 +4,19 @@ import { useNavigate } from 'react-router-dom'
 import { Routes } from '../settings'
 import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
 
-interface IloginCallbackDependency extends IAuthServiceDependency {
+interface ILoginCallback extends IAuthServiceDependency {
 
 }
 
-const loginCallback: React.FC<IloginCallbackDependency> = (props) => {
+const loginCallback: React.FC<ILoginCallback> = (props) => {
     const navigate = useNavigate()
 
     useEffect(() => {
         const processLogin = async (loggedIn: boolean) => {
             if (!loggedIn) {
                 await props.AuthService.LoginCallback()
-                console.log("Login success");
             }
-            // Signin is popup mode , no need to redirect
-            // navigate(Routes.IndexEndpoint)
+            navigate(Routes.IndexEndpoint)
         }
 
         const processLogout = async (loggedIn: boolean) => {
@@ -42,7 +40,7 @@ const loginCallback: React.FC<IloginCallbackDependency> = (props) => {
         }
 
         processCallback();
-    })
+    }, [])
 
     return <></>
 }
