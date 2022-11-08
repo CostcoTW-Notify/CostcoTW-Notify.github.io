@@ -2,6 +2,7 @@ import { ChatRoom } from "../models/ChatRoom";
 import { Setting } from "../settings";
 import AuthService from "./AuthService";
 import axios from "axios";
+import { ICostcoProduct } from "@/models/ICostcoProduct";
 
 interface IApiService {
   FetchAllChatRoom(): Promise<ChatRoom[]>;
@@ -97,5 +98,21 @@ export default class ApiService implements IApiService {
     });
 
     return response.status === 200;
+  }
+
+  public async FetchProductFromCode(
+    code: string
+  ): Promise<ICostcoProduct | null> {
+    const sender = await this.CreateAxiosInstance();
+
+    try {
+      let response = await sender<ICostcoProduct>({
+        url: `/api/CostcoProduct/search?code=${code}`,
+        method: "get",
+      });
+      return response.data;
+    } catch (error) {
+      return null;
+    }
   }
 }

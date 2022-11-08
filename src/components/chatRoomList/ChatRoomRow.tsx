@@ -23,8 +23,6 @@ interface IChatRoomRow {
     ApiService: ApiService
 }
 
-
-
 const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
     const chatRoom = props.ChatRoom
     const [showDetail, setShowDetail] = useState(false)

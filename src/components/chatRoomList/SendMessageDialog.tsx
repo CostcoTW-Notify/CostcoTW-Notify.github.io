@@ -9,7 +9,8 @@ import {
     DialogActions,
     TextField,
 } from '@mui/material'
-import { useState } from 'react'
+import React, { useState } from 'react'
+
 
 interface ISendMessageBox {
     Id: string
