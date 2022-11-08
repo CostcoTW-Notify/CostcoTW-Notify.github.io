@@ -85,12 +85,17 @@ export default class ApiService implements IApiService {
     window.location.assign(response.data.register_Url);
   }
 
-  public async SendMessage(id: string, message: string): Promise<void> {
-    throw "後端忘了做... 晚點補";
-    // const sender = await this.CreateAxiosInstance();
+  public async SendMessage(id: string, message: string): Promise<boolean> {
+    const sender = await this.CreateAxiosInstance();
 
-    // let response = await sender({
+    let response = await sender({
+      url: `/api/ChatRooms/${id}/SendTestMessage`,
+      method: "post",
+      data: {
+        message: message,
+      },
+    });
 
-    // })
+    return response.status === 200;
   }
 }

@@ -1,3 +1,8 @@
+export class InventoryCheckItem {
+  code?: string;
+  name?: string;
+}
+
 export class Subscriptions {
   /**
    * 每日新上架特價商品
@@ -12,7 +17,7 @@ export class Subscriptions {
   /**
    * 庫存通知商品 Code
    */
-  inventoryCheckList?: string[];
+  inventoryCheckList?: InventoryCheckItem[];
 }
 
 export class ChatRoom {

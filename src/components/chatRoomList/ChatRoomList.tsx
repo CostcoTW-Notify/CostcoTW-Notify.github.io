@@ -25,7 +25,7 @@ const chatRoomList: React.FC<IChatRoomList> = (props) => {
         <TableContainer component={Paper} sx={{
             height: '70vh'
         }}>
-            <Table aria-label='Chat room list'>
+            <Table stickyHeader aria-label='Chat room list'>
                 <TableHead>
                     <TableRow>
                         <TableCell />

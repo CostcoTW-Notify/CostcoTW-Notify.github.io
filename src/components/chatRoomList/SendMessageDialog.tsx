@@ -9,6 +9,7 @@ import {
     DialogActions,
     TextField,
 } from '@mui/material'
+import { useState } from 'react'
 
 interface ISendMessageBox {
     Id: string
@@ -19,15 +20,17 @@ interface ISendMessageBox {
 
 const sendMessageBox: React.FC<ISendMessageBox> = (props) => {
 
+    const [message, setMessage] = useState<string>("")
 
     const sendMessage = async (x: any) => {
-        const msg = x.target.value
-        await props.ApiService.SendMessage(props.Id, msg)
-        props.CloseDialog()
+        let result = await props.ApiService.SendMessage(props.Id, message)
+        if (result)
+            props.CloseDialog()
+
     }
 
-    const handleMsgChange = async (x: any) => {
-
+    const handleMsgChange = async (event: any) => {
+        setMessage(event.target.value)
     }
 
     return (
@@ -41,7 +44,6 @@ const sendMessageBox: React.FC<ISendMessageBox> = (props) => {
                     onChange={handleMsgChange}
                     autoFocus
                     margin="dense"
-                    // id="name"
                     label="測試訊息"
                     fullWidth
                     variant="standard"
