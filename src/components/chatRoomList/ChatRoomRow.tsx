@@ -6,6 +6,7 @@ import {
     TableCell,
     TableRow,
     Stack,
+    Tooltip
 } from '@mui/material'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -54,24 +55,30 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
         <Fragment key={chatRoom.id}>
             <TableRow>
                 <TableCell>
-                    <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setShowDetail(!showDetail)}
-                    >
-                        {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
+                    <Tooltip title="展開訂閱項目">
+                        <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setShowDetail(!showDetail)}
+                        >
+                            {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    </Tooltip>
                 </TableCell>
                 <TableCell>{chatRoom.roomName}</TableCell>
                 <TableCell >{translateRoomType(chatRoom.roomType!.toString())}</TableCell>
                 <TableCell>
                     <Stack direction="row-reverse">
-                        <Button aria-label='Remove chat room' sx={{ p: 0 }} onClick={handleRemoveChatRooms}>
-                            <DeleteIcon />
-                        </Button>
-                        <Button aria-label='Send test message' sx={{ p: 0 }} onClick={handleSendMessage}>
-                            <SendIcon />
-                        </Button>
+                        <Tooltip title="移除聊天室">
+                            <Button aria-label='Remove chat room' sx={{ p: 0 }} onClick={handleRemoveChatRooms}>
+                                <DeleteIcon />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title="發送測試訊息">
+                            <Button aria-label='Send test message' sx={{ p: 0 }} onClick={handleSendMessage}>
+                                <SendIcon />
+                            </Button>
+                        </Tooltip>
                     </Stack>
                 </TableCell>
             </TableRow>

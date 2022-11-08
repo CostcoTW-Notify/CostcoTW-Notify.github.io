@@ -11,6 +11,7 @@ import {
     TableCell,
     TableRow,
     IconButton,
+    Tooltip
 } from '@mui/material'
 import { Add, Save, Clear } from '@mui/icons-material';
 import { useState } from 'react'
@@ -57,9 +58,11 @@ const InventoryCheckTable: React.FC<IInventoryCheckTable> = (props) => {
                 <Typography variant='body1' >
                     庫存上架通知
                 </Typography>
-                <IconButton onClick={() => setShowSearchDialog(true)}>
-                    <Add />
-                </IconButton>
+                <Tooltip title="新增庫存監控商品">
+                    <IconButton onClick={() => setShowSearchDialog(true)}>
+                        <Add />
+                    </IconButton>
+                </Tooltip>
             </Stack>
             <Table size="small" >
                 <TableHead>
@@ -83,9 +86,11 @@ const InventoryCheckTable: React.FC<IInventoryCheckTable> = (props) => {
                             <TableCell>{item.code}</TableCell>
                             <TableCell>{item.name}</TableCell>
                             <TableCell>
-                                <IconButton onClick={() => handleRemoveItem(item.code)}>
-                                    <Clear />
-                                </IconButton>
+                                <Tooltip title="移除監控">
+                                    <IconButton onClick={() => handleRemoveItem(item.code)}>
+                                        <Clear />
+                                    </IconButton>
+                                </Tooltip>
                             </TableCell>
                         </TableRow>
                     )}
@@ -161,13 +166,14 @@ const subscription: React.FC<ISubscription> = (props) => {
                     <Typography> 每日最優惠商品 </Typography>
                 </Stack>
                 <Stack direction="row-reverse">
-                    <IconButton onClick={handleSaveSubscription}>
-                        <Save />
-                    </IconButton>
+                    <Tooltip title="儲存訂閱設定">
+                        <IconButton onClick={handleSaveSubscription}>
+                            <Save />
+                        </IconButton>
+                    </Tooltip>
                 </Stack>
             </Stack>
             <InventoryCheckTable checkItems={inventoryCheckItems} updateCheckItem={setInventoryCheckItems} />
-            {/* { InventoryCheckTable(inventoryCheckItems, setInventoryCheckItems)} */}
         </Box >
     )
 }
