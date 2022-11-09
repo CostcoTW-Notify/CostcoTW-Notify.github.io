@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Container } from '@mui/material'
 import AuthService from "./services/AuthService"
-import { Box, SxProps } from "@mui/system";
+import { Box } from "@mui/system";
 import AppBar from './components/appBar/AppBar'
 import AuthServiceContext from '@/context/AuthContext'
 
@@ -15,26 +15,57 @@ const app: React.FC = () => {
   const router = getRouter(authService)
 
   const darkTheme = createTheme({
+    components: {
+      MuiTypography: {
+        defaultProps: {
+          fontWeight: 550
+
+        }
+      },
+      MuiIconButton: {
+        defaultProps: {
+          sx: {
+            color: "CadetBlue"
+          }
+        }
+      },
+      MuiButton: {
+        defaultProps: {
+          sx: {
+            backgroundColor: "CadetBlue"
+          }
+        }
+      },
+      MuiAppBar: {
+        defaultProps: {
+          sx: {
+            backgroundColor: '#16c464'
+          }
+        }
+      }
+    },
+    typography: {
+      fontFamily: [
+        'Microsoft JhengHei',
+        'Noto Sans TC',
+        "PingFang TC"
+      ].join(','),
+    },
     palette: {
       // mode: 'dark',
+      // primary: green
     },
   });
-
-  const props: SxProps = {
-    // backgroundColor: "primary.main",
-    height: '100vh',
-  }
-
 
 
   return (
     <ThemeProvider theme={darkTheme}>
       <AuthServiceContext.Provider value={authService}>
-        <Box sx={props}>
+        <Box>
           <AppBar AuthService={authService} />
-          <Container>
+          <Box sx={{ height: '90vh' }}>
             <RouterProvider router={router} />
-          </Container>
+          </Box>
         </Box>
       </AuthServiceContext.Provider>
     </ThemeProvider>

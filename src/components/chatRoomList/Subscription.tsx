@@ -19,7 +19,6 @@ import { Subscriptions, ChatRoom, Dictionary } from '@/models/ChatRoom'
 import Loading from '@/components/feedback/Loading'
 import ApiService from '@/services/ApiService'
 import SearchProductDialog from './SearchProductDialog'
-import { ICostcoProduct } from '@/models/ICostcoProduct';
 
 interface IInventoryCheckItem {
     code: string
@@ -55,7 +54,7 @@ const InventoryCheckTable: React.FC<IInventoryCheckTable> = (props) => {
                 />
             </Dialog>
             <Stack direction="row" alignItems="center">
-                <Typography variant='body1' >
+                <Typography >
                     庫存上架通知
                 </Typography>
                 <Tooltip title="新增庫存監控商品">
@@ -68,12 +67,12 @@ const InventoryCheckTable: React.FC<IInventoryCheckTable> = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>
-                            <Typography variant='body2'>
+                            <Typography >
                                 編號
                             </Typography>
                         </TableCell>
                         <TableCell>
-                            <Typography variant='body2'>
+                            <Typography >
                                 名稱
                             </Typography>
                         </TableCell>
@@ -83,8 +82,8 @@ const InventoryCheckTable: React.FC<IInventoryCheckTable> = (props) => {
                 <TableBody>
                     {props.checkItems.map(item =>
                         <TableRow key={item.code} >
-                            <TableCell>{item.code}</TableCell>
-                            <TableCell>{item.name}</TableCell>
+                            <TableCell><Typography>{item.code}</Typography></TableCell>
+                            <TableCell><Typography>{item.name}</Typography></TableCell>
                             <TableCell>
                                 <Tooltip title="移除監控">
                                     <IconButton onClick={() => handleRemoveItem(item.code)}>

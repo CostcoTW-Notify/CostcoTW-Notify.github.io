@@ -1,12 +1,12 @@
 import {
     Dialog,
-    Button,
     Collapse,
     IconButton,
     TableCell,
     TableRow,
     Stack,
-    Tooltip
+    Tooltip,
+    Typography
 } from '@mui/material'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -65,19 +65,27 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
                         </IconButton>
                     </Tooltip>
                 </TableCell>
-                <TableCell>{chatRoom.roomName}</TableCell>
-                <TableCell >{translateRoomType(chatRoom.roomType!.toString())}</TableCell>
                 <TableCell>
-                    <Stack direction="row-reverse">
+                    <Typography>
+                        {chatRoom.roomName}
+                    </Typography>
+                </TableCell>
+                <TableCell >
+                    <Typography>
+                        {translateRoomType(chatRoom.roomType!.toString())}
+                    </Typography>
+                </TableCell>
+                <TableCell>
+                    <Stack direction="row-reverse" spacing={2}>
                         <Tooltip title="移除聊天室">
-                            <Button aria-label='Remove chat room' sx={{ p: 0 }} onClick={handleRemoveChatRooms}>
+                            <IconButton aria-label='Remove chat room' onClick={handleRemoveChatRooms}>
                                 <DeleteIcon />
-                            </Button>
+                            </IconButton>
                         </Tooltip>
                         <Tooltip title="發送測試訊息">
-                            <Button aria-label='Send test message' sx={{ p: 0 }} onClick={handleSendMessage}>
+                            <IconButton aria-label='Send test message' onClick={handleSendMessage}>
                                 <SendIcon />
-                            </Button>
+                            </IconButton>
                         </Tooltip>
                     </Stack>
                 </TableCell>

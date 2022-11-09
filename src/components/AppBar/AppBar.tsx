@@ -14,12 +14,8 @@ interface IAppBarDependency extends IAuthServiceDependency { }
 
 const appBar: React.FC<IAppBarDependency> = (props) => {
 
-    const appBarSx: SxProps = {
-        backgroundColor: '#16c464'
-    }
-
     return (
-        <AppBar position="static" sx={appBarSx}>
+        <AppBar position="static" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1 }}>

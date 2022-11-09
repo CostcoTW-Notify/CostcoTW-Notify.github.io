@@ -46,7 +46,7 @@ const avater: React.FC<IAppBarDependency> = (props) => {
     const showAvatar = () => {
         return (
             <Box>
-                <Tooltip title="Open settings">
+                <Tooltip title="開啟選單">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <Avatar alt={loginUser?.profile.name} src={loginUser?.profile.picture} />
                     </IconButton>

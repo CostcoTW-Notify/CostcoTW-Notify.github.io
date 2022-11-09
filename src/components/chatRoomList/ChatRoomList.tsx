@@ -6,6 +6,7 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Typography,
 } from '@mui/material'
 
 import ChatRoomRow from '@/components/chatRoomList/ChatRoomRow'
@@ -29,8 +30,8 @@ const chatRoomList: React.FC<IChatRoomList> = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell />
-                        <TableCell >名稱</TableCell>
-                        <TableCell >類型</TableCell>
+                        <TableCell ><Typography variant='h6'> 名稱 </Typography> </TableCell>
+                        <TableCell ><Typography variant='h6'> 類型 </Typography></TableCell>
                         <TableCell ></TableCell>
                     </TableRow>
                 </TableHead>

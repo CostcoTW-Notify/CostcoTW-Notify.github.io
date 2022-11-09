@@ -90,10 +90,18 @@ const searchProductDialog: React.FC<ISearchProductDialog> = (props) => {
                     <></>}
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => props.CloseDialog()}>取消</Button>
+                <Button onClick={() => props.CloseDialog()}>
+                    <Typography sx={{ color: 'whitesmoke' }}>
+                        取消
+                    </Typography>
+                </Button>
                 <Button
                     disabled={product === null || code === null}
-                    onClick={() => handleCreateNewCheckItem()}>新增庫存監測</Button>
+                    onClick={() => handleCreateNewCheckItem()}>
+                    <Typography sx={{ color: 'whitesmoke' }}>
+                        新增庫存監測
+                    </Typography>
+                </Button>
             </DialogActions>
         </Box >
     )

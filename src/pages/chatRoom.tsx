@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
 import {
+    Box,
     Button,
     Typography,
     Stack,
-    SxProps
+    SxProps,
+    Container
 } from '@mui/material'
 import ChatRoomList from '@/components/chatRoomList/ChatRoomList'
 import ApiService from '@/services/ApiService'
@@ -31,23 +33,27 @@ const chatRoom: React.FC<IChatRoom> = (props) => {
 
     const stackProp: SxProps = {
         p: '2em',
-        backgroundColor: 'gray'
     }
 
     return (
-        <Stack
-            spacing={2}
-            sx={stackProp}>
-            <Stack alignItems="flex-end">
-                <Button variant='contained' onClick={() => apiService.RegisterNewChatRoom()}>
-                    <Typography>
-                        建立新通知
-                    </Typography>
-                </Button>
-            </Stack>
-            <ChatRoomList ChatRooms={chatRoomData} ApiService={apiService} />
-        </Stack>
+        <Box sx={{ backgroundColor: 'darkgray', height: '90vh' }}>
+            <Container>
+                <Stack
+                    spacing={2}
+                    sx={stackProp}>
+                    <Stack alignItems="flex-end">
+                        <Button variant='contained' onClick={() => apiService.RegisterNewChatRoom()}>
+                            <Typography>
+                                建立新通知
+                            </Typography>
+                        </Button>
+                    </Stack>
+                    <ChatRoomList ChatRooms={chatRoomData} ApiService={apiService} />
+                </Stack>
+            </Container>
+        </Box>
     )
+
 }
 
 export default chatRoom
