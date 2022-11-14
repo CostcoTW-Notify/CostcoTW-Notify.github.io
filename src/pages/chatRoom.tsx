@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import GlobalUIContext from '@/context/GlobalUIContext'
 import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
 import {
     Box,
@@ -13,12 +14,11 @@ import ApiService from '@/services/ApiService'
 import { ChatRoom } from '@/models/ChatRoom'
 
 interface IChatRoom extends IAuthServiceDependency {
-
 }
 
 const chatRoom: React.FC<IChatRoom> = (props) => {
     const apiService = new ApiService()
-
+    const globalUI = useContext(GlobalUIContext)
     const [chatRoomData, setChatRoomData] = useState<ChatRoom[]>([])
 
     useEffect(() => {
@@ -27,7 +27,8 @@ const chatRoom: React.FC<IChatRoom> = (props) => {
             setChatRoomData(chatRooms)
         }
 
-        fetchChatRoom()
+        globalUI.showLoading(true)
+        fetchChatRoom().finally(() => globalUI.showLoading(false))
     }, [])
 
 

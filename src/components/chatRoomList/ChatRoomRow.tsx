@@ -13,7 +13,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useContext } from 'react'
+import GlobalUIContext from '@/context/GlobalUIContext'
 import { ChatRoom } from "@/models/ChatRoom"
 import ApiService from '@/services/ApiService';
 import Subscription from './Subscription'
@@ -28,7 +29,7 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
     const chatRoom = props.ChatRoom
     const [showDetail, setShowDetail] = useState(false)
     const [showSendMessageBox, setShowSendMessageBox] = useState(false)
-
+    const globalUI = useContext(GlobalUIContext)
     const translateRoomType = (type: string) => {
         switch (type.toUpperCase()) {
             case "GROUP":
@@ -41,9 +42,11 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
     }
 
     const handleRemoveChatRooms = () => {
+        globalUI.showLoading(true)
         props.ApiService.RemoveChatRoom(chatRoom.id!)
             .finally(() => {
                 window.location.reload()
+                globalUI.showLoading(false)
             })
     }
 

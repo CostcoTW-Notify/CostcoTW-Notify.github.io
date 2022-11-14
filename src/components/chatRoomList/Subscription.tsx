@@ -14,9 +14,9 @@ import {
     Tooltip
 } from '@mui/material'
 import { Add, Save, Clear } from '@mui/icons-material';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import GlobalUIContext from '@/context/GlobalUIContext'
 import { Subscriptions, ChatRoom, Dictionary } from '@/models/ChatRoom'
-import Loading from '@/components/feedback/Loading'
 import ApiService from '@/services/ApiService'
 import SearchProductDialog from './SearchProductDialog'
 
@@ -107,8 +107,9 @@ interface ISubscription {
 }
 
 const subscription: React.FC<ISubscription> = (props) => {
-    const [showProcessing, setShowProcessing] = useState(false)
     const [subscription, setSubscription] = useState(props.Subscription)
+    const globalUI = useContext(GlobalUIContext)
+
 
     let checkItems: IInventoryCheckItem[] = []
     if (props.Subscription !== undefined && props.Subscription?.inventoryCheckList !== undefined)
@@ -145,15 +146,14 @@ const subscription: React.FC<ISubscription> = (props) => {
             chatRoomInfo.subscriptions.inventoryCheckList[x.code] = x.name
         })
 
-        setShowProcessing(true)
+        globalUI.showLoading(true)
         await props.ApiService.UpdateChatRoom(props.RoomId, chatRoomInfo)
-        setShowProcessing(false)
+        globalUI.showLoading(false)
         window.location.reload()
     }
 
     return (
         <Box sx={{ m: 1 }}>
-            <Loading show={showProcessing} />
             <Typography variant='h6' align='center'>
                 通知項目
             </Typography>

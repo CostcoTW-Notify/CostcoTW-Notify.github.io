@@ -13,7 +13,6 @@ import logoImg from '@/assets/images/Logo.png'
 import LineLoginButton from '@/components/loginPanel/LineLoginButton'
 import Features from '@/components/loginPanel/Features'
 
-
 interface IIndex extends IAuthServiceDependency {
 
 }
@@ -35,6 +34,7 @@ const index: React.FC<IIndex> = (props) => {
     const gridProps: SxProps = {
         p: '2em'
     }
+
 
     return (
         <Grid
