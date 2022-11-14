@@ -4,15 +4,14 @@ import {
     Toolbar,
     Typography,
     Container,
-    SxProps
 } from '@mui/material'
-import { IAuthServiceDependency } from '@/interface/components/IAuthServiceDependency'
 import Avater from './Avater'
+import { useContext } from 'react'
+import AuthContext from '@/context/AuthContext'
 
-interface IAppBarDependency extends IAuthServiceDependency { }
+const appBar: React.FC = () => {
 
-
-const appBar: React.FC<IAppBarDependency> = (props) => {
+    const authService = useContext(AuthContext)!
 
     return (
         <AppBar position="static" >
@@ -23,10 +22,7 @@ const appBar: React.FC<IAppBarDependency> = (props) => {
                             align='center'
                             variant="h6"
                             noWrap
-                            // component="a"
-                            // href="/"
                             sx={{
-                                // mr: 2,
                                 fontWeight: 700,
                                 letterSpacing: '.1rem',
                                 color: 'inherit',
@@ -38,7 +34,7 @@ const appBar: React.FC<IAppBarDependency> = (props) => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Avater AuthService={props.AuthService} />
+                        <Avater AuthService={authService} />
                     </Box>
                 </Toolbar>
             </Container>

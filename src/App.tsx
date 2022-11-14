@@ -62,8 +62,7 @@ const app: React.FC = () => {
     <ThemeProvider theme={darkTheme}>
       <AuthServiceContext.Provider value={authService}>
         <Box>
-          <AppBar AuthService={authService} />
-          <Box sx={{ height: '90vh' }}>
+          <Box sx={{ height: '100vh' }}>
             <RouterProvider router={router} />
           </Box>
         </Box>

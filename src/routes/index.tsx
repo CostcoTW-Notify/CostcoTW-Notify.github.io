@@ -6,14 +6,17 @@ import Index from '../pages/index'
 import LoginCallback from '../pages/callback';
 import ChatRoom from '../pages/chatRoom';
 import AuthService from '../services/AuthService';
-
+import AppBar from '@/components/appBar/AppBar'
 
 const getRouter = (authService: AuthService) => {
 
     const router = createBrowserRouter([
         {
             path: Routes.IndexEndpoint,
-            element: <Index AuthService={authService} />,
+            element: <>
+                <AppBar />
+                <Index AuthService={authService} />
+            </>
         },
         {
             path: Routes.SignInCallbackEndpoint,
@@ -25,7 +28,10 @@ const getRouter = (authService: AuthService) => {
         },
         {
             path: Routes.ChatRoomEndpoint,
-            element: <ChatRoom AuthService={authService} />
+            element: <>
+                <AppBar />
+                <ChatRoom AuthService={authService} />
+            </>
         }
     ]);
 
