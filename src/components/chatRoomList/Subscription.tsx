@@ -3,6 +3,7 @@ import {
     Box,
     Typography,
     Stack,
+    FormControlLabel,
     Checkbox,
     Dialog,
     Table,
@@ -11,7 +12,9 @@ import {
     TableCell,
     TableRow,
     IconButton,
-    Tooltip
+    Tooltip,
+    useTheme,
+    useMediaQuery,
 } from '@mui/material'
 import { Add, Save, Clear } from '@mui/icons-material';
 import { useState, useContext } from 'react'
@@ -76,20 +79,21 @@ const InventoryCheckTable: React.FC<IInventoryCheckTable> = (props) => {
                                 名稱
                             </Typography>
                         </TableCell>
-                        <TableCell />
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {props.checkItems.map(item =>
                         <TableRow key={item.code} >
                             <TableCell><Typography>{item.code}</Typography></TableCell>
-                            <TableCell><Typography>{item.name}</Typography></TableCell>
                             <TableCell>
-                                <Tooltip title="移除監控">
-                                    <IconButton onClick={() => handleRemoveItem(item.code)}>
-                                        <Clear />
-                                    </IconButton>
-                                </Tooltip>
+                                <Stack width='100%' alignItems='center' direction='row' spacing='between'>
+                                    <Typography>{item.name}</Typography>
+                                    <Tooltip title="移除監控">
+                                        <IconButton onClick={() => handleRemoveItem(item.code)}>
+                                            <Clear />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Stack>
                             </TableCell>
                         </TableRow>
                     )}
@@ -152,17 +156,25 @@ const subscription: React.FC<ISubscription> = (props) => {
         window.location.reload()
     }
 
+    const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'))
+
     return (
         <Box sx={{ m: 1 }}>
             <Typography variant='h6' align='center'>
                 通知項目
             </Typography>
             <Stack direction="row" justifyContent="space-between">
-                <Stack direction="row" alignItems="center">
-                    <Checkbox checked={subscription?.dailyNewOnSale} onChange={handleDailyOnSaleChange} />
-                    <Typography> 每日新特價商品 </Typography>
-                    <Checkbox checked={subscription?.dailyNewBestBuy} onChange={handleDailyBestBuyChange} />
-                    <Typography> 每日最優惠商品 </Typography>
+                <Stack direction={isMobile ? 'column' : 'row'} alignItems="center">
+                    <FormControlLabel label={
+                        <Typography> 每日新特價商品 </Typography>
+                    } control={
+                        <Checkbox checked={subscription?.dailyNewOnSale} onChange={handleDailyOnSaleChange} />
+                    } />
+                    <FormControlLabel label={
+                        <Typography> 每日最優惠商品 </Typography>
+                    } control={
+                        <Checkbox checked={subscription?.dailyNewBestBuy} onChange={handleDailyBestBuyChange} />
+                    } />
                 </Stack>
                 <Stack direction="row-reverse">
                     <Tooltip title="儲存訂閱設定">

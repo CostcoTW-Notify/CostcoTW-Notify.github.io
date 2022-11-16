@@ -8,6 +8,7 @@ import {
     DialogContentText,
     DialogActions,
     TextField,
+    Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
 
@@ -51,8 +52,16 @@ const sendMessageBox: React.FC<ISendMessageBox> = (props) => {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => props.CloseDialog()}>取消</Button>
-                <Button onClick={sendMessage}>發送</Button>
+                <Button onClick={() => props.CloseDialog()}>
+                    <Typography sx={{ color: 'whitesmoke' }}>
+                        取消
+                    </Typography>
+                </Button>
+                <Button onClick={sendMessage}>
+                    <Typography sx={{ color: 'whitesmoke' }}>
+                        發送
+                    </Typography>
+                </Button>
             </DialogActions>
         </Box >
     )

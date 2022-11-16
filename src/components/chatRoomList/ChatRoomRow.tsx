@@ -6,7 +6,9 @@ import {
     TableRow,
     Stack,
     Tooltip,
-    Typography
+    Typography,
+    useTheme,
+    useMediaQuery,
 } from '@mui/material'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -19,6 +21,39 @@ import { ChatRoom } from "@/models/ChatRoom"
 import ApiService from '@/services/ApiService';
 import Subscription from './Subscription'
 import SendMessageDialog from './SendMessageDialog'
+
+
+const ExpendButton: React.FC<{ show: boolean, onClick: Function }> = ({ show, onClick }) => {
+    return (
+        <Tooltip title="展開訂閱項目">
+            <IconButton aria-label="expand row" onClick={() => onClick()} >
+                {show ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+        </Tooltip>
+    )
+}
+
+const SendTestMessageButton: React.FC<{ onClick: Function }> = ({ onClick }) => {
+
+    return (
+        <Tooltip title="發送測試訊息">
+            <IconButton aria-label='Send test message' onClick={() => onClick()}>
+                <SendIcon />
+            </IconButton>
+        </Tooltip>
+    )
+}
+
+const RemoveRoomButton: React.FC<{ onClick: Function }> = ({ onClick }) => {
+
+    return (
+        <Tooltip title="移除聊天室">
+            <IconButton aria-label='Remove chat room' onClick={() => onClick()}>
+                <DeleteIcon />
+            </IconButton>
+        </Tooltip>
+    )
+}
 
 interface IChatRoomRow {
     ChatRoom: ChatRoom
@@ -35,7 +70,7 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
             case "GROUP":
                 return "群組"
             case "USER":
-                return "一對一聊天"
+                return "只傳給你"
             default:
                 return "未知"
         }
@@ -54,46 +89,53 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
         setShowSendMessageBox(true)
     }
 
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
     return (
         <Fragment key={chatRoom.id}>
             <TableRow>
-                <TableCell>
-                    <Tooltip title="展開訂閱項目">
-                        <IconButton
-                            aria-label="expand row"
-                            size="small"
-                            onClick={() => setShowDetail(!showDetail)}
-                        >
-                            {showDetail ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                        </IconButton>
-                    </Tooltip>
-                </TableCell>
-                <TableCell>
-                    <Typography>
-                        {chatRoom.roomName}
-                    </Typography>
-                </TableCell>
                 <TableCell >
+                    <Stack direction='row' alignItems='center'>
+                        {isMobile ? null :
+                            <ExpendButton show={showDetail} onClick={() => setShowDetail(!showDetail)} />
+                        }
+                        <Typography textAlign="center">
+                            {chatRoom.roomName}
+                        </Typography>
+                    </Stack>
+                </TableCell>
+                <TableCell sx={{ p: 0 }}>
                     <Typography>
                         {translateRoomType(chatRoom.roomType!.toString())}
                     </Typography>
                 </TableCell>
-                <TableCell>
-                    <Stack direction="row-reverse" spacing={2}>
-                        <Tooltip title="移除聊天室">
-                            <IconButton aria-label='Remove chat room' onClick={handleRemoveChatRooms}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="發送測試訊息">
-                            <IconButton aria-label='Send test message' onClick={handleSendMessage}>
-                                <SendIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </Stack>
-                </TableCell>
+                {isMobile ? null :
+                    <TableCell >
+                        <Stack direction="row-reverse" spacing={2}>
+                            <RemoveRoomButton onClick={handleRemoveChatRooms} />
+                            <SendTestMessageButton onClick={handleSendMessage} />
+                        </Stack>
+                    </TableCell>
+                }
             </TableRow>
+
+            {isMobile ?
+                <TableRow>
+                    <TableCell>
+                        <Stack direction="row" spacing={2}>
+                            <ExpendButton show={showDetail} onClick={() => setShowDetail(!showDetail)} />
+                            <SendTestMessageButton onClick={handleSendMessage} />
+                            <RemoveRoomButton onClick={handleRemoveChatRooms} />
+                        </Stack>
+                    </TableCell>
+                    <TableCell />
+                </TableRow>
+                : null
+            }
+
             <TableRow>
+                {/* <TableCell /> */}
                 <TableCell sx={{ paddingTop: 0, paddingBottom: 0 }} colSpan={4}>
                     <Collapse in={showDetail} timeout="auto" unmountOnExit>
                         <Subscription
@@ -103,6 +145,7 @@ const chatRoomRow: React.FC<IChatRoomRow> = (props) => {
                     </Collapse>
                 </TableCell>
             </TableRow>
+
             <Dialog open={showSendMessageBox} onClose={() => setShowSendMessageBox(false)}>
                 <SendMessageDialog
                     Id={chatRoom.id!}

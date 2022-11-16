@@ -7,7 +7,9 @@ import {
     Typography,
     Stack,
     SxProps,
-    Container
+    Container,
+    useMediaQuery,
+    useTheme
 } from '@mui/material'
 import ChatRoomList from '@/components/chatRoomList/ChatRoomList'
 import ApiService from '@/services/ApiService'
@@ -36,22 +38,28 @@ const chatRoom: React.FC<IChatRoom> = (props) => {
         p: '2em',
     }
 
+    const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'))
+
+    const paddingWeight = isMobile ? undefined : '10vw'
     return (
-        <Box sx={{ backgroundColor: 'darkgray', height: '90vh' }}>
-            <Container>
-                <Stack
-                    spacing={2}
-                    sx={stackProp}>
-                    <Stack alignItems="flex-end">
-                        <Button variant='contained' onClick={() => apiService.RegisterNewChatRoom()}>
-                            <Typography>
-                                建立新通知
-                            </Typography>
-                        </Button>
-                    </Stack>
-                    <ChatRoomList ChatRooms={chatRoomData} ApiService={apiService} />
+        <Box sx={{
+            backgroundColor: 'darkgray',
+            height: '90vh',
+            paddingLeft: paddingWeight,
+            paddingRight: paddingWeight,
+        }}>
+            <Stack
+                spacing={2}
+                sx={stackProp}>
+                <Stack alignItems="flex-end">
+                    <Button variant='contained' onClick={() => apiService.RegisterNewChatRoom()}>
+                        <Typography>
+                            建立新通知
+                        </Typography>
+                    </Button>
                 </Stack>
-            </Container>
+                <ChatRoomList ChatRooms={chatRoomData} ApiService={apiService} />
+            </Stack>
         </Box>
     )
 
