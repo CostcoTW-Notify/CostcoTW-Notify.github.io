@@ -40,7 +40,7 @@
 
 - ~~MVP 完成~~
 - ~~Improve - 前端 RWD 優化 (針對 Mobile 裝置)~~
-- Maintain - 補完 Unit Test
+- ~~Maintain - 補完 Unit Test~~
 - Infra - API Gateway 導入
 - Infra - GCP PUB/SUB 導入 (針對 Microservice 之間的通訊)
 - Feature - 歷史價格查詢功能
