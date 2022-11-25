@@ -18,7 +18,7 @@
 
 <br>
 
-![Systems Architecture](https://raw.githubusercontent.com/CostcoTW-Notify/.github/72e3b0214425b5a06ab9adc81e7e8a5999a63850/profile/image/CostcoTW-Notify_SD.png)
+![Systems Architecture](https://raw.githubusercontent.com/CostcoTW-Notify/.github/main/profile/image/CostcoTW-Notify_SD_v2.png)
 
 <br>
 
